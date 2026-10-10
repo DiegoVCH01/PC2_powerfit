@@ -1,1 +1,45 @@
-<p>dashboard works!</p>
+<div *ngIf="usuario" class="dashboard-page">
+  <div class="dashboard-header">
+    <div>
+      <h2 class="dashboard-title">Bienvenido, {{ usuario.nombre | uppercase }} 👋</h2>
+      <p class="dashboard-date">{{ hoy | date: 'fullDate' }}</p>
+    </div>
+    <button class="btn-logout" (click)="cerrarSesion()">🚪 Cerrar Sesión</button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h5>📦 Productos</h5>
+      <p class="stat-number">24</p>
+      <p class="text-muted mb-0">Suplementos disponibles</p>
+    </div>
+    <div class="stat-card">
+      <h5>🏷️ Categorías</h5>
+      <p class="stat-number">6</p>
+      <p class="text-muted mb-0">Proteínas, creatinas, etc.</p>
+    </div>
+    <div class="stat-card">
+      <h5>👤 Usuario Activo</h5>
+      <p class="h5 fw-bold text-dark">{{ usuario.email }}</p>
+      <p class="text-muted mb-0">Sesión iniciada</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h5>Panel de Administración — PowerFit 💪</h5>
+    <p class="text-muted">Gestiona productos, inventario y estadísticas del sistema.</p>
+    <ul>
+      <li>Ver listado completo de productos</li>
+      <li>Agregar nuevos suplementos al catálogo</li>
+      <li>Modificar stock y precios</li>
+      <li>Revisar historial de movimientos</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 🔍 Si no hay usuario, muestra esto para saber qué pasa -->
+<div *ngIf="!usuario" class="container text-center py-5">
+  <h3>🔄 Cargando...</h3>
+  <p class="text-muted">Si este mensaje no desaparece, no hay sesión activa</p>
+  <a routerLink="/login" class="btn btn-primary mt-3">Ir a Login</a>
+</div>
