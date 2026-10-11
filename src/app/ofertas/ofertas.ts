@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Product, Producto } from '../services/product';
 import { Cart } from '../services/cart';
 
@@ -9,25 +9,31 @@ import { Cart } from '../services/cart';
   templateUrl: './ofertas.html',
   styleUrl: './ofertas.css',
 })
-export class Ofertas implements OnInit{
+export class Ofertas implements OnInit {
 
   productos: Producto[] = [];
   categoriaSeleccionada = 'Todas';
   cargando = true;
   mensaje = '';
 
-  constructor(private productService: Product, private cartService: Cart) {}
+  constructor(private productService: Product, private cartService: Cart, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.productService.getProductos().subscribe({
       next: (data) => {
-        this.productos = data.filter(producto => producto.oferta);
+        this.productos =
+          data.filter(producto => producto.oferta);
         this.cargando = false;
+        this.cdr.markForCheck();
       },
 
       error: (error) => {
-        console.error('Error cargando ofertas:', error);
+        console.error(
+          'Error cargando ofertas:',
+          error
+        );
         this.cargando = false;
+        this.cdr.markForCheck();
       }
     });
   }
@@ -54,17 +60,14 @@ export class Ofertas implements OnInit{
     return producto.precio - this.calcularPrecioOferta(producto);
   }
 
-  agregarAlCarrito(producto: Producto): void {
+  agregarAlCarrito(
+    producto: Producto
+  ): void {
 
-    const agregado =
-      this.cartService.agregarProducto(producto);
+    this.cartService
+      .agregarProducto(producto);
 
-    if (agregado) {
-      this.mensaje =
-        `${producto.nombre} agregado al carrito`;
-    } else {
-      this.mensaje =
-        `${producto.nombre} ya está en el carrito`;
-    }
+    this.mensaje =
+      `${producto.nombre} agregado al carrito`;
   }
 }

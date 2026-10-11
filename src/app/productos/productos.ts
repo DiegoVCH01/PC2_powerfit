@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product, Producto } from '../services/product';
 import { Cart } from '../services/cart';
 
 @Component({
   selector: 'app-productos',
-  imports: [ CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './productos.html',
   styleUrl: './productos.css',
 })
-export class Productos implements OnInit{
+export class Productos implements OnInit {
   productos: Producto[] = [];
   textoBusqueda = '';
   categoriaSeleccionada = 'Todas';
@@ -18,21 +18,25 @@ export class Productos implements OnInit{
   mensaje = '';
 
 
-  constructor(private productService: Product, private cartService:Cart) {}
+  constructor(private productService: Product, private cartService: Cart, private cdr: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.productService.getProductos().subscribe({
       next: (data) => {
         this.productos = data;
         this.cargando = false;
+        this.cdr.markForCheck();
       },
 
       error: (error) => {
-        console.error('Error cargando productos:', error);
+        console.error(
+          'Error cargando productos:',
+          error
+        );
+
         this.cargando = false;
+        this.cdr.markForCheck();
       }
-
     });
-
   }
 
   get productosFiltrados(): Producto[] {
@@ -58,17 +62,14 @@ export class Productos implements OnInit{
 
   }
 
-  agregarAlCarrito(producto: Producto): void {
+  agregarAlCarrito(
+    producto: Producto
+  ): void {
 
-    const agregado =
-      this.cartService.agregarProducto(producto);
+    this.cartService
+      .agregarProducto(producto);
 
-    if (agregado) {
-      this.mensaje =
-        `${producto.nombre} agregado al carrito`;
-    } else {
-      this.mensaje =
-        `${producto.nombre} ya está en el carrito`;
-    }
+    this.mensaje =
+      `${producto.nombre} agregado al carrito`;
   }
 }
