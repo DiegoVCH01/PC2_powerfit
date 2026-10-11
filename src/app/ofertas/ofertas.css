@@ -1,0 +1,183 @@
+.ofertas-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.15), transparent 30%), var(--pf-bg);
+}
+
+/* ENCABEZADO */
+
+.ofertas-header {
+  max-width: 750px;
+  margin: auto;
+}
+
+.section-label {
+  color: var(--pf-primary-light);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.ofertas-header h1 {
+  margin-top: 10px;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+}
+
+.ofertas-header p {
+  color: var(--pf-muted);
+  font-size: 1.1rem;
+}
+
+/* FILTROS */
+
+.category-button {
+  background: var(--pf-surface);
+  color: var(--pf-muted);
+  border: 1px solid var(--pf-border);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: 0.25s;
+}
+
+.category-button:hover {
+  color: white;
+  border-color: var(--pf-primary);
+}
+
+.active-category {
+  background: var(--pf-primary);
+  border-color: var(--pf-primary);
+  color: white;
+}
+
+/* CARD */
+
+.offer-card {
+  height: 100%;
+  background: linear-gradient(145deg, var(--pf-surface), var(--pf-surface-light));
+  border: 1px solid var(--pf-border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.offer-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--pf-primary);
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(37, 99, 235, 0.15);
+}
+
+/* IMAGEN */
+
+.offer-image {
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.offer-card:hover .offer-image img {
+  transform: scale(1.06);
+}
+
+/* DESCUENTO */
+
+.discount-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* CONTENIDO */
+
+.offer-body {
+  padding: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-label {
+  color: var(--pf-primary-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.offer-body h3 {
+  margin-top: 10px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  min-height: 60px;
+}
+
+/* PRECIOS */
+
+.old-price {
+  color: var(--pf-muted);
+  text-decoration: line-through;
+  margin-top: 10px;
+}
+
+.offer-price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--pf-text);
+  margin-top: 4px;
+}
+
+.saving {
+  color: #22c55e;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.stock {
+  font-weight: 600;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+/* MENSAJE */
+
+.power-alert {
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--pf-primary-light);
+  border: 1px solid var(--pf-primary);
+  border-radius: 12px;
+}
+
+/* VACÍO */
+
+.empty-offers {
+  text-align: center;
+  padding: 70px 20px;
+  color: var(--pf-muted);
+}
+
+.empty-offers h3 {
+  color: var(--pf-text);
+  font-weight: 800;
+}
