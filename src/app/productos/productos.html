@@ -35,13 +35,10 @@
         <div class="col-lg-4">
           <label class="form-label"> Categoría </label>
 
-          <select class="form-select power-input" [(ngModel)]="categoriaSeleccionada">
+          <select class="form-select power-input category-select" [(ngModel)]="categoriaSeleccionada">
             <option value="Todas">Todas</option>
-
             <option value="Suplementos">Suplementos</option>
-
             <option value="Equipamiento">Equipamiento</option>
-
             <option value="Accesorios">Accesorios</option>
           </select>
         </div>
@@ -102,7 +99,7 @@
             <!-- PIPE CURRENCY -->
 
             <div class="product-price">
-              {{ producto.precio | currency: 'PEN' : 'symbol-narrow' : '1.2-2' }}
+              {{ producto.precio | currency: 'PEN' : 'S/ ' : '1.2-2' }}
             </div>
 
             <!-- NGSTYLE -->
@@ -122,11 +119,11 @@
             <!-- EVENT + PROPERTY BINDING -->
 
             <button
-              class="btn btn-primary-power w-100"
+              class="btn btn-primary-power w-100 product-button"
               [disabled]="producto.stock === 0"
               (click)="seleccionarProducto(producto)"
             >
-              {{ producto.stock === 0 ? 'Agotado' : 'Seleccionar' }}
+              {{ producto.stock === 0 ? 'Agotado' : 'Agregar al carrito' }}
             </button>
           </div>
         </article>

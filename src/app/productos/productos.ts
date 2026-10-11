@@ -9,7 +9,7 @@ import { Product, Producto } from '../services/product';
   templateUrl: './productos.html',
   styleUrl: './productos.css',
 })
-export class Productos {
+export class Productos implements OnInit{
   productos: Producto[] = [];
   textoBusqueda = '';
   categoriaSeleccionada = 'Todas';
