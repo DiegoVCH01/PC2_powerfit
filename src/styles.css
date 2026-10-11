@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* PowerFit Theme */
+
+  --pf-bg: #0b1118;
+  --pf-surface: #151d27;
+  --pf-surface-light: #1e293b;
+
+  --pf-primary: #2563eb;
+  --pf-primary-hover: #1d4ed8;
+  --pf-primary-light: #60a5fa;
+
+  --pf-text: #f8fafc;
+  --pf-muted: #94a3b8;
+
+  --pf-border: #263241;
+}
+
+body {
+  margin: 0;
+  background-color: var(--pf-bg);
+  color: var(--pf-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Botones reutilizables */
+
+.btn-primary-power {
+  background-color: var(--pf-primary);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-primary-power:hover {
+  background-color: var(--pf-primary-hover);
+  color: white;
+}
+
+.btn-outline-power {
+  border: 1px solid var(--pf-border);
+  color: var(--pf-text);
+  padding: 12px 25px;
+  border-radius: 8px;
+}
+
+.btn-outline-power:hover {
+  background-color: var(--pf-surface);
+  color: white;
+}

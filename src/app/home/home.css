@@ -1,0 +1,87 @@
+.hero {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-badge {
+  color: var(--pf-primary-light);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.hero-title span {
+  color: var(--pf-primary);
+}
+
+.hero-subtitle {
+  color: var(--pf-text);
+  margin-top: 25px;
+}
+
+.hero-text {
+  color: var(--pf-muted);
+  font-size: 1.1rem;
+  max-width: 550px;
+}
+
+.hero-image img {
+  height: 420px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 1px solid var(--pf-border);
+}
+
+.benefits {
+  background-color: #111923;
+}
+
+.benefit-card {
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-border);
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.benefit-card p {
+  color: var(--pf-muted);
+}
+
+.category-card {
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-border);
+  padding: 30px;
+  border-radius: 12px;
+  height: 100%;
+  transition: 0.3s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+
+  border-color: var(--pf-primary);
+}
+
+.category-number {
+  color: var(--pf-primary-light);
+
+  font-weight: bold;
+}
+
+.category-card p {
+  color: var(--pf-muted);
+}
+
+.category-card a {
+  color: var(--pf-primary-light);
+
+  text-decoration: none;
+}
