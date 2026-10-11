@@ -110,7 +110,7 @@
             <button
               class="btn btn-primary-power w-100"
               [disabled]="producto.stock === 0"
-              (click)="seleccionarProducto(producto)"
+              (click)="agregarAlCarrito(producto)"
             >
               {{ producto.stock === 0 ? 'Agotado' : 'Agregar al carrito' }}
             </button>

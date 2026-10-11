@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Product, Producto } from '../services/product';
+import { Cart } from '../services/cart';
 
 @Component({
   selector: 'app-ofertas',
@@ -15,7 +16,7 @@ export class Ofertas implements OnInit{
   cargando = true;
   mensaje = '';
 
-  constructor(private productService: Product) {}
+  constructor(private productService: Product, private cartService: Cart) {}
 
   ngOnInit(): void {
     this.productService.getProductos().subscribe({
@@ -53,7 +54,17 @@ export class Ofertas implements OnInit{
     return producto.precio - this.calcularPrecioOferta(producto);
   }
 
-  seleccionarProducto(producto: Producto): void {
-    this.mensaje = `${producto.nombre} agregado correctamente`;
+  agregarAlCarrito(producto: Producto): void {
+
+    const agregado =
+      this.cartService.agregarProducto(producto);
+
+    if (agregado) {
+      this.mensaje =
+        `${producto.nombre} agregado al carrito`;
+    } else {
+      this.mensaje =
+        `${producto.nombre} ya está en el carrito`;
+    }
   }
 }

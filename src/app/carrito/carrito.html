@@ -1,1 +1,54 @@
-<p>carrito works!</p>
+<section class="carrito-page">
+  <div class="container py-5">
+    <div class="carrito-header mb-5">
+      <span class="section-label"> POWERFIT MARKET </span>
+
+      <h1>Mi carrito</h1>
+
+      <p>Revisa los productos que agregaste.</p>
+    </div>
+
+    <!-- CARRITO VACÍO -->
+
+    <div *ngIf="productos.length === 0" class="empty-cart">
+      <h2>Tu carrito está vacío</h2>
+
+      <p>Todavía no has agregado ningún producto.</p>
+
+      <a routerLink="/productos" class="btn btn-primary-power"> Ver productos </a>
+    </div>
+
+    <!-- PRODUCTOS -->
+
+    <div *ngIf="productos.length > 0" class="row g-4">
+      <div *ngFor="let producto of productos" class="col-md-6 col-lg-4">
+        <article class="cart-card">
+          <div class="cart-image">
+            <img [src]="producto.imagen" [alt]="producto.nombre" />
+          </div>
+
+          <div class="cart-body">
+            <span class="category-label">
+              {{ producto.categoria | uppercase }}
+            </span>
+
+            <h3>
+              {{ producto.nombre }}
+            </h3>
+
+            <div class="cart-price">
+              {{ producto.precio | currency: 'PEN' : 'S/ ' : '1.2-2' }}
+            </div>
+
+            <button
+              class="btn btn-outline-danger w-100 mt-auto"
+              (click)="eliminarProducto(producto.id)"
+            >
+              Eliminar del carrito
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

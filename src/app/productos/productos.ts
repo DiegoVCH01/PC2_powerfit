@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product, Producto } from '../services/product';
+import { Cart } from '../services/cart';
 
 @Component({
   selector: 'app-productos',
@@ -17,7 +18,7 @@ export class Productos implements OnInit{
   mensaje = '';
 
 
-  constructor(private productService: Product) {}
+  constructor(private productService: Product, private cartService:Cart) {}
   ngOnInit(): void {
     this.productService.getProductos().subscribe({
       next: (data) => {
@@ -57,8 +58,17 @@ export class Productos implements OnInit{
 
   }
 
-  seleccionarProducto(producto: Producto): void {
-    this.mensaje =
-      `${producto.nombre} seleccionado correctamente`;
+  agregarAlCarrito(producto: Producto): void {
+
+    const agregado =
+      this.cartService.agregarProducto(producto);
+
+    if (agregado) {
+      this.mensaje =
+        `${producto.nombre} agregado al carrito`;
+    } else {
+      this.mensaje =
+        `${producto.nombre} ya está en el carrito`;
+    }
   }
 }
