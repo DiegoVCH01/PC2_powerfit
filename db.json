@@ -1,1 +1,84 @@
-{}
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Whey Protein Elite 2LB",
+      "imagen": "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Suplementos",
+      "precio": 149.9,
+      "stock": 15,
+      "oferta": true,
+      "descuento": 20
+    },
+    {
+      "id": 2,
+      "nombre": "Creatina Monohidratada",
+      "imagen": "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Suplementos",
+      "precio": 89.9,
+      "stock": 20,
+      "oferta": false,
+      "descuento": 0
+    },
+    {
+      "id": 3,
+      "nombre": "Pre Workout Power",
+      "imagen": "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Suplementos",
+      "precio": 109.9,
+      "stock": 4,
+      "oferta": true,
+      "descuento": 15
+    },
+    {
+      "id": 4,
+      "nombre": "Mancuernas Hexagonales",
+      "imagen": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Equipamiento",
+      "precio": 159.9,
+      "stock": 8,
+      "oferta": false,
+      "descuento": 0
+    },
+    {
+      "id": 5,
+      "nombre": "Kettlebell 16 KG",
+      "imagen": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Equipamiento",
+      "precio": 179.9,
+      "stock": 5,
+      "oferta": true,
+      "descuento": 25
+    },
+    {
+      "id": 6,
+      "nombre": "Bandas de Resistencia",
+      "imagen": "https://images.unsplash.com/photo-1598289431512-b97b0917affc?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Accesorios",
+      "precio": 49.9,
+      "stock": 30,
+      "oferta": true,
+      "descuento": 10
+    },
+    {
+      "id": 7,
+      "nombre": "Cinturón de Levantamiento",
+      "imagen": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Accesorios",
+      "precio": 79.9,
+      "stock": 2,
+      "oferta": false,
+      "descuento": 0
+    },
+    {
+      "id": 8,
+      "nombre": "Shaker PowerFit 750ML",
+      "imagen": "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Accesorios",
+      "precio": 29.9,
+      "stock": 0,
+      "oferta": false,
+      "descuento": 0
+    }
+  ]
+}
