@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router'; // <-- Vital para usar routerLink
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterModule], // <-- Agrégalo aquí
   templateUrl: './home.html',
-  styleUrl: './home.css',
+  styleUrl: './home.css'
 })
 export class Home {
-  
+
 }

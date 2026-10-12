@@ -1,161 +1,101 @@
-<!-- HERO PRINCIPAL -->
-<section class="hero">
-  <div class="container py-5">
-    <div class="row align-items-center g-5">
-      <!-- TEXTO -->
-      <div class="col-lg-6">
-        <span class="hero-badge"> POWERFIT MARKET </span>
+<!-- src/app/home/home.html -->
 
-        <h1 class="hero-title mt-3">
-          SUPERA TUS
-          <span>LÍMITES</span>
-        </h1>
-
-        <h2 class="hero-subtitle">Equipamiento y suplementación para tu entrenamiento</h2>
-
-        <p class="hero-text">
-          Encuentra suplementos, accesorios y equipamiento deportivo para mejorar tu rendimiento y
-          alcanzar tus objetivos fitness.
-        </p>
-
-        <div class="d-flex flex-wrap gap-3 mt-4">
-          <a routerLink="/productos" class="btn btn-primary-power"> Ver productos </a>
-
-          <a routerLink="/ofertas" class="btn btn-outline-power"> Ver ofertas </a>
-        </div>
-      </div>
-
-      <!-- IMAGEN PRINCIPAL -->
-      <div class="col-lg-6">
-        <div class="hero-image">
-          <img
-            src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=80"
-            alt="PowerFit gimnasio"
-            class="img-fluid"
-          />
-
-          <!-- TARJETA FLOTANTE -->
-          <div class="floating-card">
-            <strong>+500</strong>
-            <span>Productos fitness</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BENEFICIOS -->
-<section class="benefits py-5">
+<!-- HERO SECTION (Diseño centralizado tipo modelo) -->
+<section class="hero-section">
   <div class="container">
-    <div class="row g-4 text-center">
-      <!-- ENVÍO -->
-      <div class="col-md-4">
-        <div class="benefit-card">
-          <div class="benefit-icon">🚚</div>
-
-          <h5>Envío rápido</h5>
-
-          <p>Recibe tus productos de forma segura y rápida.</p>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <h1 class="hero-title">SUPERA TUS <span>LÍMITES</span></h1>
+        <p class="hero-subtitle">Equipamiento & Suplementación de Élite. Entra en el estado de flujo. Transforma tu potencial en poder medible. Únete a la élite.</p>
+        
+        <div class="hero-buttons">
+          <!-- Usando las clases globales que ya tienes en styles.css -->
+          <a routerLink="/tienda" class="btn-primary-power text-decoration-none">
+            EXPLORAR CATÁLOGO <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+          <a routerLink="/ofertas" class="btn-outline-power text-decoration-none">
+            VER OFERTAS EXCLUSIVAS
+          </a>
         </div>
-      </div>
-
-      <!-- PRODUCTOS -->
-      <div class="col-md-4">
-        <div class="benefit-card">
-          <div class="benefit-icon">✓</div>
-
-          <h5>Productos originales</h5>
-
-          <p>Suplementos, accesorios y equipamiento seleccionado.</p>
-        </div>
-      </div>
-
-      <!-- SEGURIDAD -->
-      <div class="col-md-4">
-        <div class="benefit-card">
-          <div class="benefit-icon">🔒</div>
-
-          <h5>Compra segura</h5>
-
-          <p>Realiza tus compras de manera sencilla y confiable.</p>
-        </div>
+        
       </div>
     </div>
   </div>
 </section>
 
-<!-- CATEGORÍAS -->
-<section class="categories py-5">
+<!-- BARRA DE MARCAS ALIADAS -->
+<section class="brands-bar d-none d-md-block">
   <div class="container">
-    <div class="section-heading mb-5">
-      <span> CATEGORÍAS DESTACADAS </span>
-
-      <h2>Todo lo que necesitas para entrenar</h2>
-
-      <p>Encuentra productos diseñados para acompañar tu progreso y mejorar tu rendimiento.</p>
+    <div class="brands-header">
+      <div class="brands-label">EQUIPAMIENTO HOMOLOGADO & ALIANZAS GLOBALES</div>
+      <div class="brands-status">VERIFICADAS BAJO ESTÁNDAR IPF / IFBB</div>
     </div>
-
-    <div class="row g-4">
-      <!-- SUPLEMENTOS -->
-      <div class="col-md-4">
-        <div class="category-card">
-          <div class="category-number">01</div>
-
-          <h3>Suplementos</h3>
-
-          <p>
-            Proteínas, creatinas, pre entrenos y nutrición deportiva para mejorar tu rendimiento.
-          </p>
-
-          <a routerLink="/productos"> Explorar → </a>
-        </div>
-      </div>
-
-      <!-- EQUIPAMIENTO -->
-      <div class="col-md-4">
-        <div class="category-card">
-          <div class="category-number">02</div>
-
-          <h3>Equipamiento</h3>
-
-          <p>Mancuernas, bandas, discos y equipamiento para entrenamientos completos.</p>
-
-          <a routerLink="/productos"> Explorar → </a>
-        </div>
-      </div>
-
-      <!-- ACCESORIOS -->
-      <div class="col-md-4">
-        <div class="category-card">
-          <div class="category-number">03</div>
-
-          <h3>Accesorios</h3>
-
-          <p>Guantes, straps, cinturones, shakers y complementos para tus rutinas.</p>
-
-          <a routerLink="/productos"> Explorar → </a>
-        </div>
-      </div>
+    <div class="brands-logos">
+      <span>IRONFORGE</span>
+      <span>TITANX</span>
+      <span>KINETIQ</span>
+      <span>VULCAN</span>
+      <span>SYNTHEX</span>
+      <span>APEXLABS</span>
     </div>
   </div>
 </section>
 
-<!-- BANNER FINAL -->
-<section class="promo py-5">
-  <div class="container">
-    <div class="promo-box text-center">
-      <span class="promo-label"> POWERFIT MARKET </span>
-
-      <h2>Transforma tu entrenamiento</h2>
-
-      <p>Equípate con productos seleccionados para acompañarte en cada etapa de tu progreso.</p>
-
-      <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
-        <a routerLink="/productos" class="btn btn-primary-power"> Explorar catálogo </a>
-
-        <a routerLink="/ofertas" class="btn btn-outline-power"> Ver ofertas </a>
+<!-- SECCIÓN DE CATEGORÍAS (Grilla de 4) -->
+<!-- Sección de Categorías -->
+<div class="row g-4 mt-4">
+  
+  <!-- Tarjeta 1: Suplementos -->
+  <div class="col-md-6 col-lg-3">
+    <!-- Agregamos routerLink="/tienda" -->
+    <a routerLink="/tienda" class="category-card text-decoration-none">
+      <div class="card-img-wrapper">
+        <img src="assets/suplementos.jpg" alt="Suplementos" class="img-fluid">
       </div>
-    </div>
+      <div class="card-body-custom">
+        <h3 class="category-title text-white">SUPLEMENTOS & PROTEÍNAS</h3>
+        <p class="category-desc text-muted">Creatina Creapure®, Whey Isolate 90%. Fórmulas Pre-Workout de alta sinergia muscular.</p>
+      </div>
+    </a>
   </div>
-</section>
+
+  <!-- Tarjeta 2: Equipamiento -->
+  <div class="col-md-6 col-lg-3">
+    <a routerLink="/tienda" class="category-card text-decoration-none">
+      <div class="card-img-wrapper">
+        <img src="assets/equipamiento.jpg" alt="Equipamiento" class="img-fluid">
+      </div>
+      <div class="card-body-custom">
+        <h3 class="category-title text-white">EQUIPAMIENTO DE FUERZA</h3>
+        <p class="category-desc text-muted">Barras olímpicas 20kg, Mancuernas hexagonales de uretano y racks de acero calibre 11.</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Tarjeta 3: Ropa -->
+  <div class="col-md-6 col-lg-3">
+    <a routerLink="/tienda" class="category-card text-decoration-none">
+      <div class="card-img-wrapper">
+        <img src="assets/ropa.jpg" alt="Ropa Deportiva" class="img-fluid">
+      </div>
+      <div class="card-body-custom">
+        <h3 class="category-title text-white">ROPA DEPORTIVA PRO</h3>
+        <p class="category-desc text-muted">Compresión anatómica de grado médico, camisetas ultra transpirables Dry-Fit.</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Tarjeta 4: Accesorios -->
+  <div class="col-md-6 col-lg-3">
+    <a routerLink="/tienda" class="category-card text-decoration-none">
+      <div class="card-img-wrapper">
+        <img src="assets/accesorios.jpg" alt="Accesorios" class="img-fluid">
+      </div>
+      <div class="card-body-custom">
+        <h3 class="category-title text-white">ACCESORIOS & RECUPERACIÓN</h3>
+        <p class="category-desc text-muted">Cinturones de palanca 10mm, Shakers de acero isotérmicos y pistolas de masaje.</p>
+      </div>
+    </a>
+  </div>
+
+</div>

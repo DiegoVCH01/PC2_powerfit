@@ -1,1 +1,54 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg" style="background-color: #0a0a0a; border-bottom: 1px solid var(--pf-border); padding: 15px 0;">
+  <div class="container">
+    
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/" style="color: white; font-weight: 900; font-size: 1.5rem; letter-spacing: 2px;">
+      POWERFIT
+    </a>
+    
+    <!-- Botón Hamburguesa para Móviles -->
+    <button class="navbar-toggler custom-toggler" type="button" (click)="toggleMenu()" style="border-color: rgba(255,255,255,0.1);">
+      <i class="bi bi-list" style="color: white; font-size: 1.5rem;"></i>
+    </button>
+
+    <!-- Enlaces (Colapsables en móvil) -->
+    <div class="collapse navbar-collapse" [class.show]="menuAbierto">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-center text-lg-start mt-3 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="cerrarMenu()">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/tienda" routerLinkActive="active" (click)="cerrarMenu()">TIENDA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/ofertas" routerLinkActive="active" (click)="cerrarMenu()">OFERTAS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contacto" routerLinkActive="active" (click)="cerrarMenu()">CONTACTO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="cerrarMenu()">DASHBOARD</a>
+        </li>
+      </ul>
+      
+      <!-- Iconos y Mi Cuenta -->
+      <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
+        <!-- Buscador ficticio -->
+        <div class="d-none d-lg-flex align-items-center" style="background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 4px;">
+          <span style="color: var(--pf-muted); font-size: 0.8rem;">Buscar equipo o suplementos...</span>
+        </div>
+        
+        <a routerLink="/carrito" class="position-relative text-white" (click)="cerrarMenu()">
+          <i class="bi bi-bag" style="font-size: 1.2rem;"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" style="font-size: 0.6rem;">3</span>
+        </a>
+        
+        <a routerLink="/mi-cuenta" class="btn-outline-power d-flex align-items-center gap-2" style="padding: 5px 15px; font-size: 0.8rem;" (click)="cerrarMenu()">
+          <span class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">US</span>
+          MI CUENTA
+        </a>
+      </div>
+    </div>
+    
+  </div>
+</nav>

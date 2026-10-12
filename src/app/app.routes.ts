@@ -6,15 +6,23 @@ import { Home } from './home/home';
 import { Productos } from './productos/productos';
 import { Ofertas } from './ofertas/ofertas';
 import { Carrito } from './carrito/carrito';
+import { MiCuenta } from './mi-cuenta/mi-cuenta';
+import { Tienda } from './tienda/tienda';
+import { Contacto } from './contacto/contacto';
 
 export const routes: Routes = [
   { path: '', component: Home },
+  { path: 'home', component: Home },
   { path: 'productos', component: Productos },
   { path: 'ofertas', component: Ofertas },
 
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'carrito', component: Carrito},
+
+  { path: 'contacto', component: Contacto },
+  { path: 'tienda', component: Tienda },
+  { path: 'mi-cuenta', component: MiCuenta },
 
   { path: '**', component: NotFoundComponent },
 ];

@@ -5,6 +5,7 @@ import { Cart } from '../services/cart';
 
 @Component({
   selector: 'app-ofertas',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './ofertas.html',
   styleUrl: './ofertas.css',
@@ -64,10 +65,12 @@ export class Ofertas implements OnInit {
     producto: Producto
   ): void {
 
-    this.cartService
-      .agregarProducto(producto);
+    this.cartService.agregarProducto(producto);
+    this.mensaje = `${producto.nombre} agregado al carrito`;
 
-    this.mensaje =
-      `${producto.nombre} agregado al carrito`;
+    setTimeout(() => {
+      this.mensaje = '';
+      this.cdr.markForCheck();
+    }, 3000);
   }
 }
