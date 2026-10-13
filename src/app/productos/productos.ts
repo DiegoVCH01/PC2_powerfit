@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product, Producto } from '../services/product';
 import { Cart } from '../services/cart';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-productos',
@@ -18,8 +19,20 @@ export class Productos implements OnInit {
   mensaje = '';
 
 
-  constructor(private productService: Product, private cartService: Cart, private cdr: ChangeDetectorRef) { }
+  constructor(private productService: Product, private cartService: Cart, private cdr: ChangeDetectorRef, private route: ActivatedRoute) { }
   ngOnInit(): void {
+    const categoria =
+      this.route.snapshot.queryParamMap.get('categoria');
+
+    if (
+      categoria === 'Suplementos' ||
+      categoria === 'Equipamiento' ||
+      categoria === 'Ropa' ||
+      categoria === 'Accesorios'
+    ) {
+      this.categoriaSeleccionada = categoria;
+    }
+    
     this.productService.getProductos().subscribe({
       next: (data) => {
         this.productos = data;

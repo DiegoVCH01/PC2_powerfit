@@ -3,7 +3,7 @@
     {
       "id": "1",
       "nombre": "Whey Protein Elite 2LB",
-      "imagen": "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=800&q=80",
+      "imagen": "https://images.unsplash.com/photo-1774793476310-fd7d843184c5?auto=format&fit=crop&w=800&q=80",
       "categoria": "Suplementos",
       "precio": 149.9,
       "stock": 15,
@@ -13,7 +13,7 @@
     {
       "id": "2",
       "nombre": "Creatina Monohidratada",
-      "imagen": "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=800&q=80",
+      "imagen": "https://images.unsplash.com/photo-1693996046514-0406d0773a7d?auto=format&fit=crop&w=800&q=80",
       "categoria": "Suplementos",
       "precio": 89.9,
       "stock": 20,
@@ -23,7 +23,7 @@
     {
       "id": "3",
       "nombre": "Pre Workout Power",
-      "imagen": "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?auto=format&fit=crop&w=800&q=80",
+      "imagen": "https://images.unsplash.com/photo-1693996046744-d7d7434bc777?auto=format&fit=crop&w=800&q=80",
       "categoria": "Suplementos",
       "precio": 109.9,
       "stock": 4,
@@ -63,7 +63,7 @@
     {
       "id": "7",
       "nombre": "Cinturón de Levantamiento",
-      "imagen": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+      "imagen": "https://images.unsplash.com/photo-1586232710888-675866d80ad2?auto=format&fit=crop&w=800&q=80",
       "categoria": "Accesorios",
       "precio": 79.9,
       "stock": 2,
@@ -73,12 +73,52 @@
     {
       "id": "8",
       "nombre": "Shaker PowerFit 750ML",
-      "imagen": "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=800&q=80",
+      "imagen": "https://images.unsplash.com/photo-1680265346124-ba1b82b19d5f?auto=format&fit=crop&w=800&q=80",
       "categoria": "Accesorios",
       "precio": 29.9,
       "stock": 0,
       "oferta": false,
       "descuento": 0
+    },
+    {
+      "id": "9",
+      "nombre": "Camiseta Dry-Fit PowerFit",
+      "imagen": "https://images.unsplash.com/photo-1778052995220-f73ca6a799db?auto=format&fit=crop&w=800&q=80",
+      "categoria": "Ropa",
+      "precio": 69.9,
+      "stock": 18,
+      "oferta": false,
+      "descuento": 0
+    },
+    {
+      "id": "10",
+      "nombre": "Short Training Performance",
+      "imagen": "https://images.pexels.com/photos/6389868/pexels-photo-6389868.jpeg",
+      "categoria": "Ropa",
+      "precio": 59.9,
+      "stock": 12,
+      "oferta": true,
+      "descuento": 15
+    },
+    {
+      "id": "11",
+      "nombre": "Rodillo de Masaje Recovery",
+      "imagen": "https://images.pexels.com/photos/4378850/pexels-photo-4378850.jpeg",
+      "categoria": "Accesorios",
+      "precio": 54.9,
+      "stock": 9,
+      "oferta": false,
+      "descuento": 0
+    },
+    {
+      "id": "12",
+      "nombre": "Guantes Training Pro",
+      "imagen": "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "categoria": "Accesorios",
+      "precio": 45.9,
+      "stock": 3,
+      "oferta": true,
+      "descuento": 10
     }
   ],
   "mensajes": [

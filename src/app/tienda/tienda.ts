@@ -2,11 +2,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product, Producto } from '../services/product'; // Importamos tu servicio y la interfaz
 import { Cart } from '../services/cart'; // Importamos el carrito
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tienda',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tienda.html',
   styleUrl: './tienda.css',
 })
@@ -42,9 +43,21 @@ export class Tienda implements OnInit {
     });
   }
 
-  // Permite separar los productos en las categorías de tu diseño
-  obtenerProductosPorCategoria(categoria: string): Producto[] {
-    return this.productos.filter(producto => producto.categoria === categoria);
+  get productosDestacados(): Producto[] {
+    return this.productos
+      .filter(producto => producto.stock > 0)
+      .slice(0, 4);
+  }
+
+  get ofertasDestacadas(): Producto[] {
+    return this.productos
+      .filter(producto => producto.oferta && producto.stock > 0)
+      .slice(0, 3);
+  }
+
+  calcularPrecioOferta(producto: Producto): number {
+    return producto.precio -
+      (producto.precio * producto.descuento / 100);
   }
 
   // Función para agregar al carrito
@@ -52,7 +65,7 @@ export class Tienda implements OnInit {
     this.cartService.agregarProducto(producto);
 
     // Mostramos un mensaje temporal de éxito
-    this.mensaje = `${producto.nombre} agregado al arsenal`;
+    this.mensaje = `${producto.nombre} agregado al carrito`;
 
     // Ocultamos el mensaje después de 3 segundos
     setTimeout(() => {

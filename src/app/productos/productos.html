@@ -35,10 +35,14 @@
         <div class="col-lg-4">
           <label class="form-label"> Categoría </label>
 
-          <select class="form-select power-input category-select" [(ngModel)]="categoriaSeleccionada">
+          <select
+            class="form-select power-input category-select"
+            [(ngModel)]="categoriaSeleccionada"
+          >
             <option value="Todas">Todas</option>
             <option value="Suplementos">Suplementos</option>
             <option value="Equipamiento">Equipamiento</option>
+            <option value="Ropa">Ropa</option>
             <option value="Accesorios">Accesorios</option>
           </select>
         </div>
@@ -108,10 +112,18 @@
               class="stock"
               [ngStyle]="{
                 color:
-                  producto.stock === 0 ? '#ef4444' : producto.stock <= 5 ? '#f59e0b' : '#22c55e',
+                  producto.stock === 0
+                    ? '#d97878'
+                    : producto.stock <= 5
+                      ? '#d8b26e'
+                      : 'var(--pf-muted)',
               }"
             >
-              <span *ngIf="producto.stock > 0"> Stock: {{ producto.stock }} </span>
+              <span *ngIf="producto.stock > 5"> Stock disponible: {{ producto.stock }} </span>
+
+              <span *ngIf="producto.stock > 0 && producto.stock <= 5">
+                Pocas unidades: {{ producto.stock }}
+              </span>
 
               <span *ngIf="producto.stock === 0"> Producto agotado </span>
             </p>
@@ -123,6 +135,11 @@
               [disabled]="producto.stock === 0"
               (click)="agregarAlCarrito(producto)"
             >
+              <i
+                class="bi me-2"
+                [ngClass]="producto.stock === 0 ? 'bi-x-circle' : 'bi-cart-plus'"
+              ></i>
+
               {{ producto.stock === 0 ? 'Agotado' : 'Agregar al carrito' }}
             </button>
           </div>
