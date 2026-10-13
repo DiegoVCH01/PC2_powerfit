@@ -60,6 +60,13 @@ To start the local database, open another terminal and run:
 
 ```bash
 npx json-server db.json --port 3000
+```
+
+The API will be available at:
+
+```text
+http://localhost:3000
+```
 
 ## Additional Resources
 

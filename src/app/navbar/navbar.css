@@ -1,4 +1,10 @@
 /* src/app/navbar/navbar.css */
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
 .pf-navbar {
   background-color: var(--pf-bg);
@@ -34,7 +40,7 @@
   transition: color 0.2s;
 }
 
-.nav-link:hover, 
+.nav-link:hover,
 .nav-link.active {
   color: var(--pf-text);
 }

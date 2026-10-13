@@ -21,18 +21,23 @@ export class Productos implements OnInit {
 
   constructor(private productService: Product, private cartService: Cart, private cdr: ChangeDetectorRef, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    const categoria =
-      this.route.snapshot.queryParamMap.get('categoria');
+    this.route.queryParamMap.subscribe(params => {
+      const categoria = params.get('categoria');
 
-    if (
-      categoria === 'Suplementos' ||
-      categoria === 'Equipamiento' ||
-      categoria === 'Ropa' ||
-      categoria === 'Accesorios'
-    ) {
-      this.categoriaSeleccionada = categoria;
-    }
-    
+      if (
+        categoria === 'Suplementos' ||
+        categoria === 'Equipamiento' ||
+        categoria === 'Ropa' ||
+        categoria === 'Accesorios'
+      ) {
+        this.categoriaSeleccionada = categoria;
+      } else {
+        this.categoriaSeleccionada = 'Todas';
+      }
+
+      this.cdr.markForCheck();
+    });
+
     this.productService.getProductos().subscribe({
       next: (data) => {
         this.productos = data;
