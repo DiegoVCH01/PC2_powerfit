@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,29 +14,82 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   usuario = '';
   clave = '';
+
   mensajeError = '';
 
-  constructor(private router: Router) {}
+  cargando = false;
+  mostrarClave = false;
 
-  iniciarSesion() {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
+  ) { }
+
+  iniciarSesion(): void {
+
     if (!this.usuario.trim() || !this.clave.trim()) {
       this.mensajeError = 'Completa todos los campos';
       return;
     }
 
-    if (this.usuario === 'admin@powerfit.com' && this.clave === '123456') {
-      // ✅ GUARDAR EN LOCALSTORAGE
-      const datosUsuario = {
-        email: this.usuario,
-        nombre: 'Administrador PowerFit',
-      };
-      localStorage.setItem('usuario', JSON.stringify(datosUsuario));
-      console.log('Sesión guardada ✅'); // Mira en consola F12
+    this.cargando = true;
+    this.mensajeError = '';
 
-      this.mensajeError = '';
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.mensajeError = 'Usuario o contraseña incorrectos';
-    }
+    this.userService.getPerfilUsuario().subscribe({
+
+      next: (perfil) => {
+
+        if (
+          this.usuario === perfil.correo &&
+          this.clave === perfil.clave
+        ) {
+
+          const usuarioSesion = {
+            id: perfil.id,
+            nombre: perfil.nombre,
+            correo: perfil.correo,
+            nivel: perfil.nivel
+          };
+
+          localStorage.setItem(
+            'usuario',
+            JSON.stringify(usuarioSesion)
+          );
+
+          this.cargando = false;
+          this.cdr.markForCheck();
+
+          this.router.navigate(['/dashboard']);
+
+        } else {
+
+          this.cargando = false;
+          this.mensajeError =
+            'Correo o contraseña incorrectos';
+
+          this.cdr.markForCheck();
+        }
+      },
+
+      error: (error) => {
+
+        console.error(
+          'Error al iniciar sesión:',
+          error
+        );
+
+        this.cargando = false;
+        this.mensajeError =
+          'No se pudo conectar con el servidor';
+
+        this.cdr.markForCheck();
+      }
+
+    });
+  }
+
+  toggleClave(): void {
+    this.mostrarClave = !this.mostrarClave;
   }
 }

@@ -1,154 +1,374 @@
-<!-- src/app/dashboard/dashboard.html -->
-<div class="admin-dashboard-container">
-  
-  <!-- Sidebar lateral -->
-  <aside class="admin-sidebar">
-    <div class="sidebar-brand">
-      <span class="brand-text">POWERFIT <span class="brand-accent">ADMIN</span></span>
-    </div>
-    
-    <ul class="sidebar-menu">
-      <li class="menu-item active"><i class="bi bi-grid-1x2-fill"></i> Panel Principal</li>
-      <li class="menu-item"><i class="bi bi-box-seam"></i> Inventario</li>
-      <li class="menu-item"><i class="bi bi-people"></i> Clientes</li>
-      <li class="menu-item"><i class="bi bi-envelope"></i> Mensajes <span class="badge-alert">Nuevo</span></li>
-      <li class="menu-item"><i class="bi bi-gear"></i> Configuración</li>
-    </ul>
-    
-    <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 15px;">
-      <div>
-        <i class="bi bi-shield-lock-fill text-success"></i> Acceso Nivel 1
-        <!-- Si tienes el nombre guardado en localStorage, lo mostrará aquí -->
-        <div *ngIf="usuario" style="color: var(--pf-text); font-size: 0.9rem; margin-top: 5px;">{{ usuario.nombre || usuario.email || 'Admin' }}</div>
-      </div>
-      
-      <!-- Tu botón de cerrar sesión -->
-      <button class="btn-outline-power" style="padding: 6px; font-size: 0.8rem; border-color: #ef4444; color: #ef4444;" (click)="cerrarSesion()">
-        <i class="bi bi-box-arrow-left"></i> SALIR
-      </button>
-    </div>
-  </aside>
+<div class="dashboard-page">
+  <!-- ESTADO DE CARGA -->
+  <div
+    *ngIf="cargando"
+    class="dashboard-loading d-flex flex-column align-items-center justify-content-center"
+  >
+    <div class="spinner-border" style="color: var(--pf-primary)" role="status"></div>
 
-  <!-- Contenido Principal -->
-  <main class="admin-main">
-    
-    <header class="main-header">
-      <div>
-        <h1 class="header-title">Resumen de Operaciones</h1>
-        <p class="header-subtitle">Monitoreo en tiempo real de la tienda PowerFit</p>
-      </div>
-      <div class="header-actions">
-        <button class="btn-primary-power" style="padding: 10px 20px; font-size: 0.8rem;">
-          <i class="bi bi-plus-lg me-2"></i> NUEVO PRODUCTO
-        </button>
-      </div>
-    </header>
+    <p class="mt-3 mb-0">Cargando tu espacio PowerFit...</p>
+  </div>
 
-    <!-- Estado de carga -->
-    <div *ngIf="cargando" class="text-center py-5">
-      <div class="spinner-border" style="color: var(--pf-primary);" role="status"></div>
-      <p class="mt-3" style="font-weight: 800; color: var(--pf-text);">Sincronizando base de datos...</p>
-    </div>
+  <!-- CONTENIDO -->
+  <main *ngIf="!cargando && perfil" class="container py-5">
+    <!-- ======================================
+         BIENVENIDA
+    ======================================= -->
+    <section class="dashboard-welcome mb-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <span class="dashboard-label"> MI DASHBOARD </span>
 
-    <div *ngIf="!cargando">
-      
-      <!-- Tarjetas de Métricas -->
-      <div class="metrics-grid row g-4 mb-5">
-        
-        <div class="col-md-6 col-xl-3">
-          <div class="metric-card">
-            <div class="metric-icon"><i class="bi bi-box-seam"></i></div>
-            <div class="metric-info">
-              <div class="metric-label">TOTAL PRODUCTOS</div>
-              <div class="metric-value">{{ totalProductos }}</div>
-            </div>
+          <h1 class="dashboard-title">
+            Bienvenido de vuelta,
+            <span>
+              {{ perfil.nombre }}
+            </span>
+            👋
+          </h1>
+
+          <p class="dashboard-subtitle">
+            Aquí puedes revisar rápidamente tu actividad, tus compras y tu progreso dentro de
+            PowerFit.
+          </p>
+
+          <div class="user-session-info">
+            <span>
+              <i class="bi bi-envelope me-2"></i>
+              {{ perfil.correo }}
+            </span>
+
+            <span>
+              <i class="bi bi-star-fill me-2"></i>
+              {{ perfil.nivel }}
+            </span>
           </div>
         </div>
 
+        <div class="col-lg-4">
+          <div class="dashboard-profile-mini">
+            <img [src]="perfil.imagen" [alt]="perfil.nombre" class="dashboard-avatar" />
+
+            <div>
+              <span class="profile-caption"> CUENTA POWERFIT </span>
+
+              <h3>
+                {{ perfil.nombre }}
+              </h3>
+
+              <a routerLink="/mi-cuenta" class="profile-link">
+                Ver mi perfil
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================
+         ESTADÍSTICAS
+    ======================================= -->
+    <section class="mb-5">
+      <div class="section-heading-dashboard">
+        <div>
+          <span class="dashboard-label"> TU ACTIVIDAD </span>
+
+          <h2>RESUMEN PERSONAL</h2>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- COMPRAS -->
+        <div class="col-sm-6 col-xl-3">
+          <article class="card dashboard-stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-bag-check"></i>
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label"> COMPRAS REALIZADAS </span>
+
+              <strong class="stat-value">
+                {{ totalCompras }}
+              </strong>
+
+              <span class="stat-detail"> pedidos registrados </span>
+            </div>
+          </article>
+        </div>
+
+        <!-- TOTAL GASTADO -->
+        <div class="col-sm-6 col-xl-3">
+          <article class="card dashboard-stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-wallet2"></i>
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label"> TOTAL GASTADO </span>
+
+              <strong class="stat-value stat-money">
+                {{ totalGastado | currency: 'PEN' : 'S/ ' : '1.2-2' }}
+              </strong>
+
+              <span class="stat-detail"> en compras PowerFit </span>
+            </div>
+          </article>
+        </div>
+
+        <!-- PUNTOS -->
+        <div class="col-sm-6 col-xl-3">
+          <article class="card dashboard-stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-lightning-charge-fill"></i>
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label"> PUNTOS POWERFIT </span>
+
+              <strong class="stat-value">
+                {{ perfil.puntos }}
+              </strong>
+
+              <span class="stat-detail"> puntos acumulados </span>
+            </div>
+          </article>
+        </div>
+
+        <!-- CARRITO -->
+        <div class="col-sm-6 col-xl-3">
+          <article class="card dashboard-stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-cart3"></i>
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label"> EN MI CARRITO </span>
+
+              <strong class="stat-value">
+                {{ cantidadCarrito }}
+              </strong>
+
+              <span class="stat-detail"> productos pendientes </span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================
+         GRÁFICO + ÚLTIMA COMPRA
+    ======================================= -->
+    <section class="row g-4 mb-5">
+      <!-- GRÁFICO -->
+      <div class="col-lg-7">
+        <article class="dashboard-panel h-100">
+          <div class="panel-header">
+            <div>
+              <span class="dashboard-label"> ACTIVIDAD DE COMPRAS </span>
+
+              <h3>GASTOS POR MES</h3>
+            </div>
+
+            <i class="bi bi-bar-chart-line panel-icon"></i>
+          </div>
+
+          <!-- SIN DATOS -->
+          <div *ngIf="graficoMeses.length === 0" class="empty-dashboard">
+            <i class="bi bi-bar-chart"></i>
+
+            <p>Todavía no tienes compras registradas.</p>
+          </div>
+
+          <!-- GRÁFICO SIMPLE -->
+          <div *ngIf="graficoMeses.length > 0" class="chart-container">
+            <div class="chart-item" *ngFor="let dato of graficoMeses">
+              <div class="chart-value">
+                {{ dato.total | currency: 'PEN' : 'S/ ' : '1.2-2' }}
+              </div>
+
+              <div class="chart-bar-area">
+                <div
+                  class="chart-bar"
+                  [ngStyle]="{
+                    height: dato.porcentaje + '%',
+                  }"
+                ></div>
+              </div>
+
+              <div class="chart-month">
+                {{ dato.mes }}
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- ÚLTIMA COMPRA -->
+      <div class="col-lg-5">
+        <article class="dashboard-panel h-100">
+          <div class="panel-header">
+            <div>
+              <span class="dashboard-label"> ACTIVIDAD RECIENTE </span>
+
+              <h3>ÚLTIMA COMPRA</h3>
+            </div>
+
+            <i class="bi bi-clock-history panel-icon"></i>
+          </div>
+
+          <div *ngIf="ultimaCompra; else sinCompras" class="last-order">
+            <div class="order-top">
+              <span class="order-number">
+                {{ ultimaCompra.id }}
+              </span>
+
+              <span class="order-status">
+                <i class="bi bi-check-circle-fill me-1"></i>
+
+                {{ ultimaCompra.estado }}
+              </span>
+            </div>
+
+            <div class="order-date">
+              <i class="bi bi-calendar3 me-2"></i>
+
+              {{ ultimaCompra.fecha | date: 'dd MMM yyyy' : 'UTC' }}
+            </div>
+
+            <h4 class="order-description">
+              {{ ultimaCompra.descripcion }}
+            </h4>
+
+            <p class="order-details">
+              {{ ultimaCompra.detalles }}
+            </p>
+
+            <div class="order-total">
+              <span> TOTAL </span>
+
+              <strong>
+                {{ ultimaCompra.total | currency: 'PEN' : 'S/ ' : '1.2-2' }}
+              </strong>
+            </div>
+          </div>
+
+          <ng-template #sinCompras>
+            <div class="empty-dashboard">
+              <i class="bi bi-bag-x"></i>
+
+              <p>Aún no tienes compras registradas.</p>
+            </div>
+          </ng-template>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================
+         GESTIÓN DE CUENTA
+    ======================================= -->
+    <section class="mb-5">
+      <div class="section-heading-dashboard">
+        <div>
+          <span class="dashboard-label"> ACCESOS RÁPIDOS </span>
+
+          <h2>GESTIONA TU CUENTA</h2>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- MI CUENTA -->
         <div class="col-md-6 col-xl-3">
-          <div class="metric-card">
-            <div class="metric-icon" style="background-color: rgba(249, 115, 22, 0.1); color: #f97316;">
+          <a routerLink="/mi-cuenta" class="quick-card">
+            <div class="quick-icon">
+              <i class="bi bi-person"></i>
+            </div>
+
+            <div>
+              <h4>Mi Cuenta</h4>
+
+              <p>Consulta tu perfil y tus datos personales.</p>
+            </div>
+
+            <i class="bi bi-arrow-right quick-arrow"></i>
+          </a>
+        </div>
+
+        <!-- CARRITO -->
+        <div class="col-md-6 col-xl-3">
+          <a routerLink="/carrito" class="quick-card">
+            <div class="quick-icon">
+              <i class="bi bi-cart3"></i>
+            </div>
+
+            <div>
+              <h4>Mi Carrito</h4>
+
+              <p>Revisa los productos que deseas comprar.</p>
+            </div>
+
+            <i class="bi bi-arrow-right quick-arrow"></i>
+          </a>
+        </div>
+
+        <!-- TIENDA -->
+        <div class="col-md-6 col-xl-3">
+          <a routerLink="/tienda" class="quick-card">
+            <div class="quick-icon">
+              <i class="bi bi-shop"></i>
+            </div>
+
+            <div>
+              <h4>Tienda</h4>
+
+              <p>Descubre productos y equipamiento PowerFit.</p>
+            </div>
+
+            <i class="bi bi-arrow-right quick-arrow"></i>
+          </a>
+        </div>
+
+        <!-- OFERTAS -->
+        <div class="col-md-6 col-xl-3">
+          <a routerLink="/ofertas" class="quick-card">
+            <div class="quick-icon">
               <i class="bi bi-tags"></i>
             </div>
-            <div class="metric-info">
-              <div class="metric-label">EN OFERTA</div>
-              <div class="metric-value">{{ totalOfertas }}</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-md-6 col-xl-3">
-          <div class="metric-card">
-            <div class="metric-icon" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">
-              <i class="bi bi-exclamation-triangle"></i>
-            </div>
-            <div class="metric-info">
-              <div class="metric-label">ALERTA DE STOCK</div>
-              <div class="metric-value">{{ productosBajoStock }}</div>
-            </div>
-          </div>
-        </div>
+            <div>
+              <h4>Ofertas</h4>
 
-        <div class="col-md-6 col-xl-3">
-          <div class="metric-card">
-            <div class="metric-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;">
-              <i class="bi bi-currency-dollar"></i>
+              <p>Encuentra descuentos disponibles.</p>
             </div>
-            <div class="metric-info">
-              <div class="metric-label">ESTADO DEL SERVIDOR</div>
-              <div class="metric-value" style="font-size: 1.2rem;">ONLINE</div>
-            </div>
-          </div>
-        </div>
 
-      </div>
-
-      <!-- Tabla de Inventario -->
-      <div class="table-container">
-        <h3 class="table-title">Estado del Inventario Físico</h3>
-        
-        <div class="table-responsive">
-          <table class="table admin-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>PRODUCTO</th>
-                <th>CATEGORÍA</th>
-                <th>PRECIO BASE</th>
-                <th>ESTADO</th>
-                <th>STOCK</th>
-                <th>ACCIONES</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let producto of inventario">
-                <td class="td-id">#{{ producto.id }}</td>
-                <td class="td-product">
-                  <img [src]="producto.imagen" class="product-thumb">
-                  <span>{{ producto.nombre }}</span>
-                </td>
-                <td><span class="category-badge">{{ producto.categoria }}</span></td>
-                <td class="td-price">S/. {{ producto.precio | number:'1.2-2' }}</td>
-                <td>
-                  <span class="status-badge" [class.active]="producto.oferta">
-                    {{ producto.oferta ? 'OFERTA ACTIVA' : 'PRECIO REGULAR' }}
-                  </span>
-                </td>
-                <td>
-                  <div class="stock-indicator" [class.danger]="producto.stock === 0" [class.warning]="producto.stock > 0 && producto.stock < 5">
-                    {{ producto.stock }} UNID
-                  </div>
-                </td>
-                <td class="td-actions">
-                  <button class="action-btn"><i class="bi bi-pencil"></i></button>
-                  <button class="action-btn text-danger"><i class="bi bi-trash"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <i class="bi bi-arrow-right quick-arrow"></i>
+          </a>
         </div>
       </div>
+    </section>
 
-    </div>
+    <!-- ======================================
+         CERRAR SESIÓN
+    ======================================= -->
+    <section class="dashboard-session">
+      <div>
+        <span class="dashboard-label"> SESIÓN ACTIVA </span>
+
+        <h3>
+          {{ perfil.nombre }}
+        </h3>
+
+        <p>
+          {{ perfil.correo }}
+        </p>
+      </div>
+
+      <button type="button" class="btn btn-logout" (click)="cerrarSesion()">
+        <i class="bi bi-box-arrow-right me-2"></i>
+
+        CERRAR SESIÓN
+      </button>
+    </section>
   </main>
 </div>

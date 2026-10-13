@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService, Usuario, Orden } from '../services/user.service'; // Importamos el servicio
+import { FormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mi-cuenta',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './mi-cuenta.html',
   styleUrl: './mi-cuenta.css'
 })
@@ -14,37 +17,174 @@ export class MiCuenta implements OnInit {
   perfil: Usuario | null = null;
   historial: Orden[] = [];
   cargando = true;
+  editando = false;
+  guardando = false;
+
+  mensajeExito = '';
+  mensajeError = '';
+
+  formularioPerfil = {
+    nombre: '',
+    telefono: '',
+    direccion: ''
+  };
 
   constructor(
     private userService: UserService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    // 1. Obtenemos el perfil del usuario
-    this.userService.getPerfilUsuario().subscribe({
-      next: (dataPerfil) => {
-        this.perfil = dataPerfil;
-        
-        // 2. Una vez cargado el perfil, obtenemos su historial de compras
-        this.userService.getHistorialCompras().subscribe({
-          next: (dataHistorial) => {
-            this.historial = dataHistorial;
-            this.cargando = false;
-            this.cdr.markForCheck(); // Actualizamos la pantalla
-          },
-          error: (err) => {
-            console.error('Error cargando historial de compras:', err);
-            this.cargando = false;
-            this.cdr.markForCheck();
-          }
-        });
-      },
-      error: (err) => {
-        console.error('Error cargando perfil de usuario:', err);
+
+    const sesion = localStorage.getItem('usuario');
+
+    if (!sesion) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.cargarDatos();
+  }
+
+  cargarDatos(): void {
+
+    forkJoin({
+      perfil:
+        this.userService.getPerfilUsuario(),
+
+      historial:
+        this.userService.getHistorialCompras()
+    }).subscribe({
+
+      next: ({ perfil, historial }) => {
+
+        this.perfil = perfil;
+        this.historial = historial;
+
         this.cargando = false;
+
+        this.cdr.markForCheck();
+      },
+
+      error: (error) => {
+
+        console.error(
+          'Error cargando Mi Cuenta:',
+          error
+        );
+
+        this.cargando = false;
+
         this.cdr.markForCheck();
       }
+
     });
+  }
+
+  activarEdicion(): void {
+
+    if (!this.perfil) {
+      return;
+    }
+
+    this.formularioPerfil = {
+      nombre: this.perfil.nombre,
+      telefono: this.perfil.telefono,
+      direccion: this.perfil.direccion
+    };
+
+    this.mensajeExito = '';
+    this.mensajeError = '';
+
+    this.editando = true;
+  }
+
+  cancelarEdicion(): void {
+    this.editando = false;
+    this.mensajeError = '';
+  }
+
+  guardarPerfil(): void {
+
+    if (
+      !this.formularioPerfil.nombre.trim() ||
+      !this.formularioPerfil.telefono.trim() ||
+      !this.formularioPerfil.direccion.trim()
+    ) {
+
+      this.mensajeError =
+        'Completa todos los campos';
+
+      return;
+    }
+
+    this.guardando = true;
+    this.mensajeError = '';
+
+    this.userService
+      .actualizarPerfil({
+        nombre:
+          this.formularioPerfil.nombre.trim(),
+
+        telefono:
+          this.formularioPerfil.telefono.trim(),
+
+        direccion:
+          this.formularioPerfil.direccion.trim()
+      })
+      .subscribe({
+
+        next: (perfilActualizado) => {
+
+          this.perfil =
+            perfilActualizado;
+
+          /*
+           * También actualizamos el nombre
+           * guardado en la sesión.
+           */
+          const sesion =
+            localStorage.getItem('usuario');
+
+          if (sesion) {
+
+            const usuarioSesion =
+              JSON.parse(sesion);
+
+            usuarioSesion.nombre =
+              perfilActualizado.nombre;
+
+            localStorage.setItem(
+              'usuario',
+              JSON.stringify(usuarioSesion)
+            );
+          }
+
+          this.guardando = false;
+          this.editando = false;
+
+          this.mensajeExito =
+            'Perfil actualizado correctamente';
+
+          this.cdr.markForCheck();
+        },
+
+        error: (error) => {
+
+          console.error(
+            'Error actualizando perfil:',
+            error
+          );
+
+          this.guardando = false;
+
+          this.mensajeError =
+            'No se pudo actualizar el perfil';
+
+          this.cdr.markForCheck();
+        }
+
+      });
   }
 }

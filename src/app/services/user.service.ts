@@ -7,6 +7,7 @@ export interface Usuario {
   id: string;
   nombre: string;
   correo: string;
+  clave: string;
   telefono: string;
   direccion: string;
   nivel: string;
@@ -21,6 +22,7 @@ export interface Orden {
   descripcion: string;
   detalles: string;
   total: number;
+  estado: string;
 }
 
 @Injectable({
@@ -31,11 +33,20 @@ export class UserService {
   private userUrl = 'http://localhost:3000/perfil';
   private ordersUrl = 'http://localhost:3000/historial_compras';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Función para traer los datos de Carlos Mendoza
   getPerfilUsuario(): Observable<Usuario> {
     return this.http.get<Usuario>(this.userUrl);
+  }
+
+  actualizarPerfil(
+    datos: Partial<Usuario>
+  ): Observable<Usuario> {
+    return this.http.patch<Usuario>(
+      this.userUrl,
+      datos
+    );
   }
 
   // Función para traer la lista de sus compras anteriores

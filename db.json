@@ -143,8 +143,9 @@
     "id": "PF-84938-CM",
     "nombre": "Carlos Mendoza",
     "correo": "carlos.mendoza@email.com",
-    "telefono": "+34 612 345 678",
-    "direccion": "Paseo de la Castellana 45, 4º B, Madrid",
+    "clave": "123456",
+    "telefono": "+51 987 654 321",
+    "direccion": "Av. Arequipa 2450, Lince, Lima",
     "nivel": "ATLETA ÉLITE",
     "puntos": 1450,
     "imagen": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
@@ -152,17 +153,19 @@
   "historial_compras": [
     {
       "id": "#PF-98421",
-      "fecha": "14 Oct 2026",
-      "descripcion": "Optimum Whey Isolate + Creatina Creapure",
-      "detalles": "Pack Suplementación Rendimiento • Sabor Vainilla Francesa",
-      "total": 99.49
+      "fecha": "2026-10-14",
+      "descripcion": "Whey Protein Elite + Creatina Monohidratada",
+      "detalles": "Pack de suplementación para rendimiento",
+      "total": 99.49,
+      "estado": "Entregado"
     },
     {
       "id": "#PF-95210",
-      "fecha": "28 Sep 2026",
-      "descripcion": "Cinturón Powerlifting Cuero 10mm",
-      "detalles": "Acero Inoxidable de Cierre Rápido Palanca IPF Spec • Talla L",
-      "total": 49.9
+      "fecha": "2026-09-28",
+      "descripcion": "Cinturón de Levantamiento",
+      "detalles": "Accesorio para entrenamiento de fuerza",
+      "total": 49.9,
+      "estado": "Entregado"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

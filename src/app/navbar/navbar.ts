@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Necesario para [class.show]
+import { CommonModule, isPlatformBrowser } from '@angular/common'; // Necesario para [class.show]
 import { Cart } from '../services/cart';
 
 @Component({
@@ -11,11 +11,12 @@ import { Cart } from '../services/cart';
   styleUrl: './navbar.css'
 })
 export class Navbar {
-   menuAbierto = false;
+  menuAbierto = false;
 
   constructor(
-    private cartService: Cart
-  ) {}
+    private cartService: Cart,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) { }
 
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
@@ -27,5 +28,13 @@ export class Navbar {
 
   get cantidadCarrito(): number {
     return this.cartService.obtenerCantidadTotal();
+  }
+
+  get sesionActiva(): boolean {
+
+    if (!isPlatformBrowser(this.platformId)) {
+      return false;
+    }
+    return localStorage.getItem('usuario') !== null;
   }
 }

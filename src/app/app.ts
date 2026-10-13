@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Navbar } from './navbar/navbar';
 import { Footer } from './footer/footer';
 
@@ -11,4 +11,10 @@ import { Footer } from './footer/footer';
 })
 export class App {
   protected readonly title = signal('powerfit-market');
+
+  constructor(public router: Router) {}
+
+  get mostrarLayout(): boolean {
+    return this.router.url !== '/login';
+  }
 }
