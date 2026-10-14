@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './mi-cuenta.html',
-  styleUrl: './mi-cuenta.css'
+  styleUrl: './mi-cuenta.css',
 })
 export class MiCuenta implements OnInit {
   // Variables para almacenar los datos de db.json
@@ -26,39 +26,36 @@ export class MiCuenta implements OnInit {
   formularioPerfil = {
     nombre: '',
     telefono: '',
-    direccion: ''
+    direccion: '',
   };
 
   constructor(
     private userService: UserService,
     private cdr: ChangeDetectorRef,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-
     const sesion = localStorage.getItem('usuario');
 
     if (!sesion) {
       this.router.navigate(['/login']);
+
       return;
     }
 
-    this.cargarDatos();
+    const usuarioSesion = JSON.parse(sesion);
+
+    this.cargarDatos(usuarioSesion.id);
   }
 
-  cargarDatos(): void {
-
+  cargarDatos(usuarioId: string): void {
     forkJoin({
-      perfil:
-        this.userService.getPerfilUsuario(),
+      perfil: this.userService.getUsuarioPorId(usuarioId),
 
-      historial:
-        this.userService.getHistorialCompras()
+      historial: this.userService.getHistorialCompras(usuarioId),
     }).subscribe({
-
       next: ({ perfil, historial }) => {
-
         this.perfil = perfil;
         this.historial = historial;
 
@@ -68,22 +65,16 @@ export class MiCuenta implements OnInit {
       },
 
       error: (error) => {
-
-        console.error(
-          'Error cargando Mi Cuenta:',
-          error
-        );
+        console.error('Error cargando Mi Cuenta:', error);
 
         this.cargando = false;
 
         this.cdr.markForCheck();
-      }
-
+      },
     });
   }
 
   activarEdicion(): void {
-
     if (!this.perfil) {
       return;
     }
@@ -91,7 +82,7 @@ export class MiCuenta implements OnInit {
     this.formularioPerfil = {
       nombre: this.perfil.nombre,
       telefono: this.perfil.telefono,
-      direccion: this.perfil.direccion
+      direccion: this.perfil.direccion,
     };
 
     this.mensajeExito = '';
@@ -106,15 +97,12 @@ export class MiCuenta implements OnInit {
   }
 
   guardarPerfil(): void {
-
     if (
       !this.formularioPerfil.nombre.trim() ||
       !this.formularioPerfil.telefono.trim() ||
       !this.formularioPerfil.direccion.trim()
     ) {
-
-      this.mensajeError =
-        'Completa todos los campos';
+      this.mensajeError = 'Completa todos los campos';
 
       return;
     }
@@ -122,69 +110,53 @@ export class MiCuenta implements OnInit {
     this.guardando = true;
     this.mensajeError = '';
 
+    if (!this.perfil) {
+      return;
+    }
+
     this.userService
-      .actualizarPerfil({
-        nombre:
-          this.formularioPerfil.nombre.trim(),
+      .actualizarPerfil(this.perfil.id, {
+        nombre: this.formularioPerfil.nombre.trim(),
 
-        telefono:
-          this.formularioPerfil.telefono.trim(),
+        telefono: this.formularioPerfil.telefono.trim(),
 
-        direccion:
-          this.formularioPerfil.direccion.trim()
+        direccion: this.formularioPerfil.direccion.trim(),
       })
       .subscribe({
-
         next: (perfilActualizado) => {
-
-          this.perfil =
-            perfilActualizado;
+          this.perfil = perfilActualizado;
 
           /*
            * También actualizamos el nombre
            * guardado en la sesión.
            */
-          const sesion =
-            localStorage.getItem('usuario');
+          const sesion = localStorage.getItem('usuario');
 
           if (sesion) {
+            const usuarioSesion = JSON.parse(sesion);
 
-            const usuarioSesion =
-              JSON.parse(sesion);
+            usuarioSesion.nombre = perfilActualizado.nombre;
 
-            usuarioSesion.nombre =
-              perfilActualizado.nombre;
-
-            localStorage.setItem(
-              'usuario',
-              JSON.stringify(usuarioSesion)
-            );
+            localStorage.setItem('usuario', JSON.stringify(usuarioSesion));
           }
 
           this.guardando = false;
           this.editando = false;
 
-          this.mensajeExito =
-            'Perfil actualizado correctamente';
+          this.mensajeExito = 'Perfil actualizado correctamente';
 
           this.cdr.markForCheck();
         },
 
         error: (error) => {
-
-          console.error(
-            'Error actualizando perfil:',
-            error
-          );
+          console.error('Error actualizando perfil:', error);
 
           this.guardando = false;
 
-          this.mensajeError =
-            'No se pudo actualizar el perfil';
+          this.mensajeError = 'No se pudo actualizar el perfil';
 
           this.cdr.markForCheck();
-        }
-
+        },
       });
   }
 }

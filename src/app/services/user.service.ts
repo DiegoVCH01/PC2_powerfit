@@ -18,6 +18,7 @@ export interface Usuario {
 // Definimos la estructura del Historial de compras
 export interface Orden {
   id: string;
+  usuarioId: string;
   fecha: string;
   descripcion: string;
   detalles: string;
@@ -30,27 +31,50 @@ export interface Orden {
 })
 export class UserService {
   // Las rutas hacia tu db.json
-  private userUrl = 'http://localhost:3000/perfil';
+  private usersUrl = 'http://localhost:3000/usuarios';
   private ordersUrl = 'http://localhost:3000/historial_compras';
 
   constructor(private http: HttpClient) { }
 
-  // Función para traer los datos de Carlos Mendoza
-  getPerfilUsuario(): Observable<Usuario> {
-    return this.http.get<Usuario>(this.userUrl);
+  // Buscar usuario por correo para el login
+  getUsuarioPorCorreo(
+    correo: string
+  ): Observable<Usuario[]> {
+
+    return this.http.get<Usuario[]>(
+      `${this.usersUrl}?correo=${encodeURIComponent(correo)}`
+    );
   }
 
+  // Obtener el perfil del usuario que inició sesión
+  getUsuarioPorId(
+    id: string
+  ): Observable<Usuario> {
+
+    return this.http.get<Usuario>(
+      `${this.usersUrl}/${id}`
+    );
+  }
+
+  // Actualizar exclusivamente al usuario logueado
   actualizarPerfil(
+    id: string,
     datos: Partial<Usuario>
   ): Observable<Usuario> {
+
     return this.http.patch<Usuario>(
-      this.userUrl,
+      `${this.usersUrl}/${id}`,
       datos
     );
   }
 
-  // Función para traer la lista de sus compras anteriores
-  getHistorialCompras(): Observable<Orden[]> {
-    return this.http.get<Orden[]>(this.ordersUrl);
+  // Historial correspondiente al usuario logueado
+  getHistorialCompras(
+    usuarioId: string
+  ): Observable<Orden[]> {
+
+    return this.http.get<Orden[]>(
+      `${this.ordersUrl}?usuarioId=${encodeURIComponent(usuarioId)}`
+    );
   }
 }

@@ -12,33 +12,6 @@
   overflow: hidden;
 }
 
-/* Decoración técnica superior */
-.tech-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--pf-surface);
-  border: 1px solid var(--pf-border);
-  padding: 6px 15px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.7rem;
-  color: var(--pf-muted);
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-.tech-badge .dot {
-  width: 6px;
-  height: 6px;
-  background-color: #f97316; /* Naranja para alerta del sistema */
-  border-radius: 50%;
-}
-
-.tech-badge .highlight {
-  color: var(--pf-primary); /* Azul pastel */
-}
-
 /* El número 404 gigante */
 .error-code {
   font-size: clamp(8rem, 15vw, 15rem);
@@ -46,7 +19,7 @@
   line-height: 1;
   color: var(--pf-primary); /* Azul pastel */
   /* Resplandor azul usando valores RGBA aproximados al pastel */
-  text-shadow: 0 0 40px rgba(174, 187, 245, 0.25); 
+  text-shadow: 0 0 40px rgba(174, 187, 245, 0.25);
   margin: 0;
   position: relative;
   z-index: 1;
@@ -131,7 +104,9 @@
   flex: 1;
   min-width: 250px;
   text-decoration: none;
-  transition: transform 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
   display: flex;
   flex-direction: column;
 }
@@ -173,7 +148,9 @@
 .quick-card-title i {
   font-size: 1rem;
   color: var(--pf-muted);
-  transition: transform 0.2s, color 0.2s;
+  transition:
+    transform 0.2s,
+    color 0.2s;
 }
 
 .quick-card:hover .quick-card-title i {

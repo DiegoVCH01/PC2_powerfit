@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     const datosSesion = localStorage.getItem('usuario');
 
-    // Si intenta entrar directamente sin sesión
     if (!datosSesion) {
       this.router.navigate(['/']);
       return;
@@ -52,30 +51,27 @@ export class DashboardComponent implements OnInit {
 
     this.usuarioSesion = JSON.parse(datosSesion);
 
-    this.cargarDashboard();
+    this.cargarDashboard(this.usuarioSesion.id);
   }
 
-  cargarDashboard(): void {
+  cargarDashboard(usuarioId: string): void {
     forkJoin({
-      perfil: this.userService.getPerfilUsuario(),
+      perfil: this.userService.getUsuarioPorId(usuarioId),
 
-      historial: this.userService.getHistorialCompras(),
+      historial: this.userService.getHistorialCompras(usuarioId),
     }).subscribe({
       next: ({ perfil, historial }) => {
         this.perfil = perfil;
         this.historial = historial;
 
-        // ESTADÍSTICAS DINÁMICAS
         this.totalCompras = historial.length;
 
         this.totalGastado = historial.reduce((total, compra) => total + compra.total, 0);
 
         this.cantidadCarrito = this.cartService.obtenerCantidadTotal();
 
-        // ÚLTIMA COMPRA
         this.ultimaCompra = this.obtenerUltimaCompra(historial);
 
-        // GRÁFICO DINÁMICO
         this.generarGraficoMensual(historial);
 
         this.cargando = false;

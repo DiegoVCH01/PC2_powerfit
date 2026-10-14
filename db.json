@@ -139,20 +139,34 @@
       "id": "ZN-cNqsJntw"
     }
   ],
-  "perfil": {
-    "id": "PF-84938-CM",
-    "nombre": "Carlos Mendoza",
-    "correo": "carlos.mendoza@email.com",
-    "clave": "123456",
-    "telefono": "+51 987 654 321",
-    "direccion": "Av. Arequipa 2450, Lince, Lima",
-    "nivel": "ATLETA ÉLITE",
-    "puntos": 1450,
-    "imagen": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
-  },
+  "usuarios": [
+    {
+      "id": "PF-84938-CM",
+      "nombre": "Carlos Mendoza",
+      "correo": "carlos.mendoza@email.com",
+      "clave": "123456",
+      "telefono": "+51 987 654 321",
+      "direccion": "Av. Arequipa 2450, Lince, Lima",
+      "nivel": "ATLETA ÉLITE",
+      "puntos": 1450,
+      "imagen": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "PF-76321-DV",
+      "nombre": "Diego Verastegui",
+      "correo": "diego@powerfit.com",
+      "clave": "456123",
+      "telefono": "+51 999 888 777",
+      "direccion": "Comas, Lima",
+      "nivel": "ATLETA PRO",
+      "puntos": 920,
+      "imagen": "https://images.pexels.com/photos/32703420/pexels-photo-32703420.jpeg"
+    }
+  ],
   "historial_compras": [
     {
       "id": "#PF-98421",
+      "usuarioId": "PF-84938-CM",
       "fecha": "2026-10-14",
       "descripcion": "Whey Protein Elite + Creatina Monohidratada",
       "detalles": "Pack de suplementación para rendimiento",
@@ -161,9 +175,28 @@
     },
     {
       "id": "#PF-95210",
+      "usuarioId": "PF-84938-CM",
       "fecha": "2026-09-28",
       "descripcion": "Cinturón de Levantamiento",
       "detalles": "Accesorio para entrenamiento de fuerza",
+      "total": 49.9,
+      "estado": "Entregado"
+    },
+    {
+      "id": "#PF-87342",
+      "usuarioId": "PF-76321-DV",
+      "fecha": "2026-10-08",
+      "descripcion": "Camiseta Dry-Fit PowerFit",
+      "detalles": "Ropa deportiva para entrenamiento",
+      "total": 69.9,
+      "estado": "Entregado"
+    },
+    {
+      "id": "#PF-86115",
+      "usuarioId": "PF-76321-DV",
+      "fecha": "2026-09-15",
+      "descripcion": "Bandas de Resistencia",
+      "detalles": "Set de accesorios para entrenamiento",
       "total": 49.9,
       "estado": "Entregado"
     }

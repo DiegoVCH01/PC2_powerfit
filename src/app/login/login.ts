@@ -23,69 +23,56 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) { }
 
   iniciarSesion(): void {
-
     if (!this.usuario.trim() || !this.clave.trim()) {
       this.mensajeError = 'Completa todos los campos';
+
       return;
     }
 
     this.cargando = true;
     this.mensajeError = '';
 
-    this.userService.getPerfilUsuario().subscribe({
+    this.userService.getUsuarioPorCorreo(this.usuario.trim()).subscribe({
+      next: (usuarios) => {
+        const perfil = usuarios[0];
 
-      next: (perfil) => {
-
-        if (
-          this.usuario === perfil.correo &&
-          this.clave === perfil.clave
-        ) {
-
+        if (perfil && this.clave === perfil.clave) {
           const usuarioSesion = {
             id: perfil.id,
             nombre: perfil.nombre,
             correo: perfil.correo,
-            nivel: perfil.nivel
+            nivel: perfil.nivel,
           };
 
-          localStorage.setItem(
-            'usuario',
-            JSON.stringify(usuarioSesion)
-          );
+          localStorage.setItem('usuario', JSON.stringify(usuarioSesion));
 
           this.cargando = false;
+
           this.cdr.markForCheck();
 
           this.router.navigate(['/dashboard']);
-
         } else {
-
           this.cargando = false;
-          this.mensajeError =
-            'Correo o contraseña incorrectos';
+
+          this.mensajeError = 'Correo o contraseña incorrectos';
 
           this.cdr.markForCheck();
         }
       },
 
       error: (error) => {
-
-        console.error(
-          'Error al iniciar sesión:',
-          error
-        );
+        console.error('Error al iniciar sesión:', error);
 
         this.cargando = false;
-        this.mensajeError =
-          'No se pudo conectar con el servidor';
+
+        this.mensajeError = 'No se pudo conectar con el servidor';
 
         this.cdr.markForCheck();
-      }
-
+      },
     });
   }
 
