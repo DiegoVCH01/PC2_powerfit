@@ -17,7 +17,7 @@ export interface MensajeContacto {
 })
 export class ContactService {
   // La ruta de tu base de datos para los mensajes
-  private apiUrl = 'https://powerfit-api-3ue1.onrender.com/mensajes';
+  private apiUrl = 'https://powerfit-api-3uel.onrender.com/mensajes';
 
   constructor(private http: HttpClient) {}
 
