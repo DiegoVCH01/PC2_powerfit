@@ -1,5 +1,5 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { Router, RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common'; // Necesario para [class.show]
 import { Cart } from '../services/cart';
 
@@ -15,6 +15,7 @@ export class Navbar {
 
   constructor(
     private cartService: Cart,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: object
   ) { }
 
@@ -24,6 +25,14 @@ export class Navbar {
 
   cerrarMenu(): void {
     this.menuAbierto = false;
+  }
+
+  cerrarSesion(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('usuario');
+    }
+    this.cerrarMenu();
+    this.router.navigate(['/login']);
   }
 
   get cantidadCarrito(): number {

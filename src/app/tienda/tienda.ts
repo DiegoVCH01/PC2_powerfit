@@ -60,15 +60,22 @@ export class Tienda implements OnInit {
       (producto.precio * producto.descuento / 100);
   }
 
+  private mensajeTimeout: any;
+
   // Función para agregar al carrito
   agregarAlCarrito(producto: Producto): void {
     this.cartService.agregarProducto(producto);
 
     // Mostramos un mensaje temporal de éxito
     this.mensaje = `${producto.nombre} agregado al carrito`;
+    this.cdr.markForCheck();
+
+    if (this.mensajeTimeout) {
+      clearTimeout(this.mensajeTimeout);
+    }
 
     // Ocultamos el mensaje después de 3 segundos
-    setTimeout(() => {
+    this.mensajeTimeout = setTimeout(() => {
       this.mensaje = '';
       this.cdr.markForCheck();
     }, 3000);

@@ -68,15 +68,6 @@
 
       <!-- Iconos y Mi Cuenta -->
       <div class="d-flex align-items-center justify-content-center gap-4 mt-3 mt-lg-0">
-        <!-- Buscador ficticio -->
-        <div
-          class="d-none d-lg-flex align-items-center"
-          style="background: rgba(255, 255, 255, 0.05); padding: 5px 15px; border-radius: 4px"
-        >
-          <span style="color: var(--pf-muted); font-size: 0.8rem"
-            >Buscar equipo o suplementos...</span
-          >
-        </div>
 
         <a
           class="nav-icon-link position-relative"
@@ -111,6 +102,18 @@
 
           MI CUENTA
         </a>
+
+        <button
+          *ngIf="sesionActiva"
+          type="button"
+          class="btn-outline-power d-flex align-items-center gap-1"
+          style="padding: 5px 12px; font-size: 0.8rem; border-color: rgba(239, 68, 68, 0.4); color: #f87171"
+          (click)="cerrarSesion()"
+          title="Cerrar sesión"
+        >
+          <i class="bi bi-box-arrow-right"></i>
+          <span class="d-none d-sm-inline">SALIR</span>
+        </button>
 
         <a
           *ngIf="!sesionActiva"

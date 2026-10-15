@@ -159,4 +159,9 @@ export class MiCuenta implements OnInit {
         },
       });
   }
+
+  cerrarSesion(): void {
+    localStorage.removeItem('usuario');
+    this.router.navigate(['/login']);
+  }
 }
