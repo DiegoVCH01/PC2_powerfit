@@ -18,7 +18,7 @@ export interface Producto {
   providedIn: 'root',
 })
 export class Product {
-  private apiUrl = 'http://localhost:3000/productos';
+  private apiUrl = 'https://powerfit-api-3ue1.onrender.com';
 
   constructor(private http: HttpClient) {}
 

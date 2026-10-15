@@ -31,8 +31,8 @@ export interface Orden {
 })
 export class UserService {
   // Las rutas hacia tu db.json
-  private usersUrl = 'http://localhost:3000/usuarios';
-  private ordersUrl = 'http://localhost:3000/historial_compras';
+  private usersUrl = 'https://powerfit-api-3ue1.onrender.com/usuarios';
+  private ordersUrl = 'https://powerfit-api-3ue1.onrender.com/historial_compras';
 
   constructor(private http: HttpClient) { }
 
